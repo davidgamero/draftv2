@@ -34,6 +34,12 @@ func RunPromptsFromConfig(config *config.DraftConfig) (map[string]string, error)
 	inputs := make(map[string]string)
 
 	for _, prompt := range templatePrompts {
+		for _, variableDefault := range config.VariableDefaults {
+			if variableDefault.Name == prompt.OverrideString {
+				prompt.Prompt.Default = variableDefault.Value
+				prompt.Prompt.AllowEdit = true // fix for cursor blocking ability to see default value
+			}
+		}
 		input, err := prompt.Prompt.Run()
 		if err != nil {
 			return nil, err

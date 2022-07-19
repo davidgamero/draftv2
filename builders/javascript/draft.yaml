@@ -6,3 +6,6 @@ variables:
   - name: "PORT"
     description: "the port exposed in the application"
     type: int
+variableDefaults:
+  - name: "VERSION"
+    value: "10"
